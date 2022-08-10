@@ -127,3 +127,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+drf_starttask/csv_worker/data.csv
