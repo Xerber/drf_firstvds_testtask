@@ -3,13 +3,14 @@ from rest_framework.response import Response
 from celery import current_app
 
 from .tasks import csv_task
-
+from drf_starttask.settings import LOCAL_FOLDER
 
 
 class CreateTaskAPIView(APIView):
   def post(self,request, *args, **kwargs):
     filename = request.data.get('filename')
-    task = csv_task.delay(filename)
+    filepath = f'{LOCAL_FOLDER}{filename}'
+    task = csv_task.delay(filepath)
     return Response({"success": f"Task '{task.id}' created successfully"})
 
 

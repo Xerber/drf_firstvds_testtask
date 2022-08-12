@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'csv_worker',
     'rest_framework',
     'django_celery_results',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,12 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'drf_starttask.settings')
+
+AWS_ACCESS_KEY_ID = None
+AWS_SECRET_ACCESS_KEY = None
+AWS_STORAGE_BUCKET_NAME = None
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+LOCAL_FOLDER = f'{BASE_DIR}/csv_files/'
