@@ -35,8 +35,14 @@ def csv_task(filepath):
 
 def summer(filepath,filename):
     try:
-        data = pd.read_csv(filepath,quoting=3)
-        total = pd.to_numeric(data[f'""col10""'].str.replace('"','')).sum()
-        return total 
+        resp = {}
+        # считываем данные из csv
+        df = pd.read_csv(filepath, quoting=3)
+        df.columns = df.columns.str.replace('\"', '')
+        for n in range(len(df.columns.tolist()) - 1):
+            if (n % 10 == 0):
+                total = pd.to_numeric(df[f'col{n}'].str.replace('"','')).sum()
+                resp[f"col{n}"] = total
+        return(resp)
     except FileNotFoundError:
         return({"fail": f"'{filename}' not found"})
